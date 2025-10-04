@@ -13,20 +13,17 @@ return new class extends Migration
     {
         Schema::create('colors_list', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedInteger('cl_id');
-            $table->string('colorCode');
-            $table->string('colorName');
-            $table->string('colorHex');
+            $table->string('colorCode')->index();
+            $table->string('colorName')->index();
+            $table->string('colorHex')->index();
             $table->boolean('glaze');
             $table->text('LABCH_D65');
             $table->smallInteger('LRV');
+            $table->boolean('done');
+            $table->boolean('updated')->default(false);
 
+            $table->softDeletes();
             $table->timestamps();
-
-            $table->foreign('cl_id')
-                ->references('id')
-                ->on('color_cards_list')
-                ->onDelete('CASCADE');
         });
     }
 
